@@ -1,0 +1,31 @@
+NUTRIBALANCE - COMO EJECUTAR
+
+IMPORTANTE: NO abras templates/index.html con Live Server.
+Ese archivo usa plantillas de Flask ({{ url_for(...) }} y {% for %}) y
+debe ser servido por Python.
+
+1. Abre en VS Code la carpeta NutriBalanceWeb_LISTO (la carpeta raíz,
+   donde está app.py).
+2. Abre Terminal > New Terminal.
+3. Ejecuta:
+   python -m pip install -r requirements.txt
+   python app.py
+   Si Windows no reconoce python, prueba:
+   py -m pip install -r requirements.txt
+   py app.py
+4. Mantén la terminal abierta.
+5. Abre el navegador en:
+   http://127.0.0.1:5000
+
+NO uses la dirección 127.0.0.1:5500 ni abras el HTML directamente.
+
+Estructura:
+app.py
+requirements.txt
+templates/index.html
+static/style.css
+static/script.js
+
+Los valores nutricionales son referenciales de demostración y deben
+verificarse con la tabla oficial requerida en clase. El factor kcal/kg
+es un método didáctico simplificado, no una recomendación clínica.

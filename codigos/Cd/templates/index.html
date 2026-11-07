@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriBalance | Balance nutricional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">♡ NutriBalance</a>
+  <span>REGISTRO Y EVALUACIÓN NUTRICIONAL</span>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div><span class="eyebrow">BIENESTAR · ALIMENTACIÓN · EQUILIBRIO</span>
+      <h1>Tu balance,<br><em>un día a la vez.</em></h1>
+      <p>Registra tus comidas, calcula los nutrientes y compara tu consumo con una meta energética estimada.</p>
+    </div>
+    <div class="hero-heart">♡<small>nutrición consciente</small></div>
+  </section>
+
+  <section class="panel">
+    <div class="heading"><div><span class="step">01</span><h2>Datos personales</h2></div><p>Información antropométrica y actividad física</p></div>
+    <div class="grid profile">
+      <label>Edad (años)<input id="edad" type="number" min="1" value="22"></label>
+      <label>Sexo<select id="sexo"><option>Femenino</option><option>Masculino</option><option>Prefiero no especificar</option></select></label>
+      <label>Peso (kg)<input id="peso" type="number" min="1" step="0.1" value="65"></label>
+      <label>Talla (cm)<input id="talla" type="number" min="50" step="0.1" value="165"></label>
+      <label class="span2">Actividad física<select id="actividad"><option value="Baja">Baja · 25 kcal/kg/día</option><option value="Moderada" selected>Moderada · 30 kcal/kg/día</option><option value="Alta">Alta · 35 kcal/kg/día</option></select></label>
+    </div>
+    <p class="hint">El factor kcal/kg es un método simplificado para el ejercicio académico; no equivale a una evaluación clínica individual.</p>
+  </section>
+
+  <section class="panel">
+    <div class="heading"><div><span class="step">02</span><h2>Registro de alimentos</h2></div><p>Registra la cantidad servida y el sobrante en gramos</p></div>
+    <div class="food-form">
+      <label>Tiempo de comida<select id="comida"><option>Desayuno</option><option>Media mañana</option><option>Almuerzo</option><option>Media tarde</option><option>Cena</option></select></label>
+      <label>Alimento<select id="alimento">{% for alimento in alimentos %}<option value="{{ alimento }}">{{ alimento }}</option>{% endfor %}</select></label>
+      <label>Servido (g)<input id="servido" type="number" min="1" placeholder="150"></label>
+      <label>Sobrante (g)<input id="sobrante" type="number" min="0" value="0"></label>
+      <button id="agregar" class="btn" type="button">＋ Agregar alimento</button>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th>Comida</th><th>Alimento</th><th>Servido</th><th>Sobrante</th><th>Consumido</th><th></th></tr></thead><tbody id="lista"><tr><td colspan="6" class="empty">Aún no hay alimentos registrados ♡</td></tr></tbody></table></div>
+    <div class="row-end"><small id="contador">0 alimentos</small><button id="limpiar" class="btn btn-soft" type="button">Limpiar registro</button></div>
+  </section>
+
+  <div class="center"><button id="calcular" class="btn btn-main" type="button">Calcular balance nutricional <b>♡</b></button><p id="mensaje" role="status"></p></div>
+
+  <section id="resultados" class="hidden">
+    <div class="heading result-heading"><div><span class="step">03</span><h2>Resultados del día</h2></div><p>Resumen del consumo y comparación energética</p></div>
+    <div class="cards">
+      <article><span>Índice de masa corporal</span><strong id="imc">—</strong><small>kg/m²</small></article>
+      <article><span>Meta energética</span><strong id="meta">—</strong><small>kcal/día</small></article>
+      <article><span>Kcal consumidas</span><strong id="kcal">—</strong><small>kcal registradas</small></article>
+      <article class="pink-card"><span>Balance energético</span><strong id="balance">—</strong><small id="estado">—</small></article>
+    </div>
+    <div class="charts">
+      <article class="panel"><h3>Macronutrientes</h3><canvas id="macroChart"></canvas></article>
+      <article class="panel"><h3>Kcal por tiempo de comida</h3><canvas id="mealChart"></canvas></article>
+    </div>
+    <article class="panel"><h3>Resumen de nutrientes</h3><div class="nutrients">
+      <div><span>Proteínas</span><strong id="proteinas">—</strong><small>gramos</small></div>
+      <div><span>Carbohidratos</span><strong id="carbohidratos">—</strong><small>gramos</small></div>
+      <div><span>Lípidos</span><strong id="lipidos">—</strong><small>gramos</small></div>
+      <div><span>Adecuación</span><strong id="adecuacion">—</strong><small>de la meta</small></div>
+    </div></article>
+    <p class="disclaimer">Resultados con fines educativos. Los valores de alimentos son referenciales y deben verificarse con la tabla oficial solicitada por el docente. El IMC y el factor energético no constituyen diagnóstico ni prescripción nutricional.</p>
+  </section>
+  <footer>NutriBalance <span>Hecho con cariño ♡</span></footer>
+</main>
+</body></html>
